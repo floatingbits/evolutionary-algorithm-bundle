@@ -1,0 +1,15 @@
+services:
+  _defaults:
+    # no autowire as its inside a bundle
+    autowire: false
+    autoconfigure: false
+
+  Floatingbits\EvolutionaryAlgorithmBundle\Controller\ProblemController:
+    tags: [ 'controller.service_arguments', 'container.service_subscriber' ]
+    calls:
+      - [ setContainer, [ '@Psr\Container\ContainerInterface' ] ]
+
+
+  Floatingbits\EvolutionaryAlgorithmBundle\Repository\ProblemRepository:
+    autowire: true
+    tags: ['doctrine.repository_service']

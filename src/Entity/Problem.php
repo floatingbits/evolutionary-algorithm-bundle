@@ -2,10 +2,8 @@
 
 namespace Floatingbits\EvolutionaryAlgorithmBundle\Entity;
 
-use App\Repository\ProblemRepository;
-use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ProblemRepository::class)]
+
 class Problem
 {
     private ?int $id = null;
