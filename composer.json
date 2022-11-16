@@ -1,0 +1,23 @@
+{
+    "name": "floatingbits/evolutionary-algorithm-bundle",
+    "description": "Symfony 6.1 bundle for floatingbits' EA algorithm",
+    "type": "symfony-bundle",
+    "autoload": {
+        "psr-4": {
+            "Floatingbits\\EvolutionaryAlgorithmBundle\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Soeren Parton",
+            "email": "mail@floatingbitsmedia.de"
+        }
+    ],
+    "require": {
+        "floatingbits/evolutionary-algorithm": "dev-main"
+    },
+    "repositories": [{
+        "type": "path",
+        "url": "/home/soeren/Projects/evolutionary-algorithm"
+    }]
+}

@@ -1,0 +1,55 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "6d66df12fdf40ee9722f26ab73a21244",
+    "packages": [
+        {
+            "name": "floatingbits/evolutionary-algorithm",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "/home/soeren/Projects/evolutionary-algorithm",
+                "reference": "fdb71d1bf5393a41dae8194560e17a2483eb8449"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.9",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "FloatingBits\\EvolutionaryAlgorithm\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "FloatingBits\\EvolutionaryAlgorithm\\Tests\\": "tests/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Soeren Parton",
+                    "email": "mail@floatingbitsmedia.de"
+                }
+            ],
+            "description": "A php implementation of evolutionary algorithms",
+            "transport-options": {
+                "relative": false
+            }
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "floatingbits/evolutionary-algorithm": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
+}
