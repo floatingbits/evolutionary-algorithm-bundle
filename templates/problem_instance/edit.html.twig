@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ProblemInstance{% endblock %}
+
+{% block body %}
+    <h1>Edit ProblemInstance</h1>
+
+    {{ include('@EvolutionaryAlgorithm/problem_instance/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_problem_instance_index') }}">back to list</a>
+
+    {{ include('@EvolutionaryAlgorithm/problem_instance/_delete_form.html.twig') }}
+{% endblock %}

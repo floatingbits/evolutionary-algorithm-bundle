@@ -13,3 +13,13 @@ services:
   Floatingbits\EvolutionaryAlgorithmBundle\Repository\ProblemRepository:
     autowire: true
     tags: ['doctrine.repository_service']
+
+  Floatingbits\EvolutionaryAlgorithmBundle\Controller\ProblemInstanceController:
+    tags: [ 'controller.service_arguments', 'container.service_subscriber' ]
+    calls:
+      - [ setContainer, [ '@Psr\Container\ContainerInterface' ] ]
+
+
+  Floatingbits\EvolutionaryAlgorithmBundle\Repository\ProblemInstanceRepository:
+    autowire: true
+    tags: [ 'doctrine.repository_service' ]

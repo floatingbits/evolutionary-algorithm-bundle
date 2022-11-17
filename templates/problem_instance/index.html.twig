@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProblemInstance index{% endblock %}
+
+{% block body %}
+    <h1>ProblemInstance index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>SerializedInstance</th>
+                <th>Id</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for problem_instance in problem_instances %}
+            <tr>
+                <td>{{ problem_instance.serializedInstance }}</td>
+                <td>{{ problem_instance.id }}</td>
+                <td>
+                    <a href="{{ path('app_problem_instance_show', {'id': problem_instance.id}) }}">show</a>
+                    <a href="{{ path('app_problem_instance_edit', {'id': problem_instance.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_problem_instance_new') }}">Create new</a>
+{% endblock %}

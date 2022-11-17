@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProblemInstance{% endblock %}
+
+{% block body %}
+    <h1>ProblemInstance</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>SerializedInstance</th>
+                <td>{{ problem_instance.serializedInstance }}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ problem_instance.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_problem_instance_index') }}">back to list</a>
+
+    <a href="{{ path('app_problem_instance_edit', {'id': problem_instance.id}) }}">edit</a>
+
+    {{ include('@EvolutionaryAlgorithm/problem_instance/_delete_form.html.twig') }}
+{% endblock %}
