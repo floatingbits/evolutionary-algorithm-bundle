@@ -2,27 +2,26 @@
 
 namespace Floatingbits\EvolutionaryAlgorithmBundle\Form;
 
-use Floatingbits\EvolutionaryAlgorithmBundle\Entity\ProblemInstance;
+use Floatingbits\EvolutionaryAlgorithmBundle\Entity\TournamentType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProblemInstanceType extends AbstractType
+class TournamentTypeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name')
-            ->add('problem')
-            ->add('serializedInstance')
-
+            ->add('instanceClass')
+            ->add('description')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => ProblemInstance::class,
+            'data_class' => TournamentType::class,
         ]);
     }
 }

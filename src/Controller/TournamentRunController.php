@@ -1,0 +1,94 @@
+<?php
+
+namespace Floatingbits\EvolutionaryAlgorithmBundle\Controller;
+
+use Floatingbits\EvolutionaryAlgorithmBundle\Entity\ProblemInstance;
+use Floatingbits\EvolutionaryAlgorithmBundle\Entity\TournamentRun;
+use Floatingbits\EvolutionaryAlgorithmBundle\Evolution\TournamentRunner;
+use Floatingbits\EvolutionaryAlgorithmBundle\Form\TournamentRunType;
+use Floatingbits\EvolutionaryAlgorithmBundle\Repository\ProblemInstanceRepository;
+use Floatingbits\EvolutionaryAlgorithmBundle\Repository\TournamentRunRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+#[Route('/tournament-run')]
+class TournamentRunController extends AbstractController
+{
+    #[Route('/', name: 'app_tournament_run_index', methods: ['GET'])]
+    public function index(TournamentRunRepository $tournamentRunRepository): Response
+    {
+        return $this->render('@EvolutionaryAlgorithm/tournament_run/index.html.twig', [
+            'tournament_runs' => $tournamentRunRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/new', name: 'app_tournament_run_new', methods: ['GET', 'POST'])]
+    public function new(Request $request,
+                        TournamentRunRepository $tournamentRunRepository,
+                        ProblemInstanceRepository $problemInstanceRepository ): Response
+    {
+        $tournamentRun = new TournamentRun();
+
+        $form = $this->createForm(TournamentRunType::class, $tournamentRun);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $tournamentRunRepository->save($tournamentRun, true);
+            $tournamentRunner = new TournamentRunner();
+            $specimenCollection = $tournamentRunner->runTournament($tournamentRun);
+            /** @todo persist winner specimen collection */
+            return $this->redirectToRoute('app_tournament_run_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('@EvolutionaryAlgorithm/tournament_run/new.html.twig', [
+            'tournament_run' => $tournamentRun,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_tournament_run_show', methods: ['GET'])]
+    public function show(TournamentRun $tournamentRun): Response
+    {
+        return $this->render('@EvolutionaryAlgorithm/tournament_run/show.html.twig', [
+            'tournament_run' => $tournamentRun,
+        ]);
+    }
+
+    #[Route('/{id}/run', name: 'app_tournament_run_run', methods: ['GET'])]
+    public function run(TournamentRun $tournamentRun): Response
+    {
+        return $this->render('@EvolutionaryAlgorithm/tournament_run/run.html.twig', [
+            'tournament_run' => $tournamentRun,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'app_tournament_run_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, TournamentRun $tournamentRun, TournamentRunRepository $tournamentRunRepository): Response
+    {
+        $form = $this->createForm(TournamentRunType::class, $tournamentRun);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $tournamentRunRepository->save($tournamentRun, true);
+
+            return $this->redirectToRoute('app_tournament_run_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('@EvolutionaryAlgorithm/tournament_run/edit.html.twig', [
+            'tournament_run' => $tournamentRun,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_tournament_run_delete', methods: ['POST'])]
+    public function delete(Request $request, TournamentRun $tournamentRun, TournamentRunRepository $tournamentRunRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$tournamentRun->getId(), $request->request->get('_token'))) {
+            $tournamentRunRepository->remove($tournamentRun, true);
+        }
+
+        return $this->redirectToRoute('app_tournament_run_index', [], Response::HTTP_SEE_OTHER);
+    }
+}

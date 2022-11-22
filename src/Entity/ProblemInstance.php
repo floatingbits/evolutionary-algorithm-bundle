@@ -7,6 +7,8 @@ class ProblemInstance
 {
     private ?int $id = null;
 
+    private ?string $name = null;
+
     private ?Problem $problem = null;
 
     private ?string $serializedInstance = null;
@@ -15,6 +17,22 @@ class ProblemInstance
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string|null $name
+     */
+    public function setName(?string $name): void
+    {
+        $this->name = $name;
     }
 
     /**
@@ -49,7 +67,10 @@ class ProblemInstance
         $this->serializedInstance = $serializedInstance;
     }
 
-
+    public function __toString(): string
+    {
+        return $this->getName();
+    }
 
 
 }
