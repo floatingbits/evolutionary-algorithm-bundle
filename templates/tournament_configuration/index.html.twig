@@ -19,8 +19,8 @@
                 <td>{{ tournament_configuration.serializedConfiguration }}</td>
                 <td>{{ tournament_configuration.id }}</td>
                 <td>
-                    <a href="{{ path('app_tournament_configuration_show', {'id': tournament_configuration.id}) }}">show</a>
-                    <a href="{{ path('app_tournament_configuration_edit', {'id': tournament_configuration.id}) }}">edit</a>
+                    <a href="{{ path('evolutionary_algorithm_tournament_configuration_show', {'id': tournament_configuration.id}) }}">show</a>
+                    <a href="{{ path('evolutionary_algorithm_tournament_configuration_edit', {'id': tournament_configuration.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +31,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_tournament_configuration_new') }}">Create new</a>
+    <a href="{{ path('evolutionary_algorithm_tournament_configuration_new') }}">Create new</a>
 {% endblock %}

@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/problem-instance')]
 class ProblemInstanceController extends AbstractController
 {
-    #[Route('/', name: 'app_problem_instance_index', methods: ['GET'])]
+    #[Route('/', name: 'evolutionary_algorithm_problem_instance_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager): Response
     {
         $problemInstances = $entityManager
@@ -25,7 +25,7 @@ class ProblemInstanceController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_problem_instance_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'evolutionary_algorithm_problem_instance_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $problemInstance = new ProblemInstance();
@@ -36,7 +36,7 @@ class ProblemInstanceController extends AbstractController
             $entityManager->persist($problemInstance);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_problem_instance_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('evolutionary_algorithm_problem_instance_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('@EvolutionaryAlgorithm/problem_instance/new.html.twig', [
@@ -45,7 +45,7 @@ class ProblemInstanceController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_problem_instance_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'evolutionary_algorithm_problem_instance_show', methods: ['GET'])]
     public function show(ProblemInstance $problemInstance): Response
     {
         return $this->render('@EvolutionaryAlgorithm/problem_instance/show.html.twig', [
@@ -53,7 +53,7 @@ class ProblemInstanceController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_problem_instance_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'evolutionary_algorithm_problem_instance_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, ProblemInstance $problemInstance, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ProblemInstanceType::class, $problemInstance);
@@ -62,7 +62,7 @@ class ProblemInstanceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_problem_instance_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('evolutionary_algorithm_problem_instance_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('@EvolutionaryAlgorithm/problem_instance/edit.html.twig', [
@@ -71,7 +71,7 @@ class ProblemInstanceController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_problem_instance_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'evolutionary_algorithm_problem_instance_delete', methods: ['POST'])]
     public function delete(Request $request, ProblemInstance $problemInstance, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$problemInstance->getId(), $request->request->get('_token'))) {
@@ -79,6 +79,6 @@ class ProblemInstanceController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_problem_instance_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('evolutionary_algorithm_problem_instance_index', [], Response::HTTP_SEE_OTHER);
     }
 }

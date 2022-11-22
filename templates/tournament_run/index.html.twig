@@ -17,8 +17,8 @@
             <tr>
                 <td>{{ tournament_run.id }}</td>
                 <td>
-                    <a href="{{ path('app_tournament_run_show', {'id': tournament_run.id}) }}">show</a>
-                    <a href="{{ path('app_tournament_run_edit', {'id': tournament_run.id}) }}">edit</a>
+                    <a href="{{ path('evolutionary_algorithm_tournament_run_show', {'id': tournament_run.id}) }}">show</a>
+                    <a href="{{ path('evolutionary_algorithm_tournament_run_edit', {'id': tournament_run.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -29,5 +29,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_tournament_run_new') }}">Create new</a>
+    <a href="{{ path('evolutionary_algorithm_tournament_run_new') }}">Create new</a>
 {% endblock %}

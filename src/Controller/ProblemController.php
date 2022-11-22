@@ -24,7 +24,7 @@ class ProblemController extends AbstractController
         $previous =  parent::setContainer($container);
         return $previous;
     }
-    #[Route('/', name: 'app_problem_index', methods: ['GET'])]
+    #[Route('/', name: 'evolutionary_algorithm_problem_index', methods: ['GET'])]
     public function index(ProblemRepository $problemRepository): Response
     {
         return $this->render('@EvolutionaryAlgorithm/problem/index.html.twig', [
@@ -32,7 +32,7 @@ class ProblemController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_problem_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'evolutionary_algorithm_problem_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ProblemRepository $problemRepository): Response
     {
         $problem = new Problem();
@@ -42,7 +42,7 @@ class ProblemController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $problemRepository->save($problem, true);
 
-            return $this->redirectToRoute('app_problem_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('evolutionary_algorithm_problem_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('@EvolutionaryAlgorithm/problem/new.html.twig', [
@@ -51,7 +51,7 @@ class ProblemController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_problem_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'evolutionary_algorithm_problem_show', methods: ['GET'])]
     public function show(Problem $problem): Response
     {
         return $this->render('@EvolutionaryAlgorithm/problem/show.html.twig', [
@@ -59,7 +59,7 @@ class ProblemController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_problem_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'evolutionary_algorithm_problem_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Problem $problem, ProblemRepository $problemRepository): Response
     {
         $form = $this->createForm(ProblemType::class, $problem);
@@ -68,7 +68,7 @@ class ProblemController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $problemRepository->save($problem, true);
 
-            return $this->redirectToRoute('app_problem_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('evolutionary_algorithm_problem_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('@EvolutionaryAlgorithm/problem/edit.html.twig', [
@@ -77,13 +77,13 @@ class ProblemController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_problem_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'evolutionary_algorithm_problem_delete', methods: ['POST'])]
     public function delete(Request $request, Problem $problem, ProblemRepository $problemRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$problem->getId(), $request->request->get('_token'))) {
             $problemRepository->remove($problem, true);
         }
 
-        return $this->redirectToRoute('app_problem_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('evolutionary_algorithm_problem_index', [], Response::HTTP_SEE_OTHER);
     }
 }

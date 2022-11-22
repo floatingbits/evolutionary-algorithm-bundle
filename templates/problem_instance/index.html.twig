@@ -19,8 +19,8 @@
                 <td>{{ problem_instance.serializedInstance }}</td>
                 <td>{{ problem_instance.id }}</td>
                 <td>
-                    <a href="{{ path('app_problem_instance_show', {'id': problem_instance.id}) }}">show</a>
-                    <a href="{{ path('app_problem_instance_edit', {'id': problem_instance.id}) }}">edit</a>
+                    <a href="{{ path('evolutionary_algorithm_problem_instance_show', {'id': problem_instance.id}) }}">show</a>
+                    <a href="{{ path('evolutionary_algorithm_problem_instance_edit', {'id': problem_instance.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +31,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_problem_instance_new') }}">Create new</a>
+    <a href="{{ path('evolutionary_algorithm_problem_instance_new') }}">Create new</a>
 {% endblock %}

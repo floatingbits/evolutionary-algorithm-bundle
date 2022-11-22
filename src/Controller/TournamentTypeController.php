@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/tournament-type')]
 class TournamentTypeController extends AbstractController
 {
-    #[Route('/', name: 'app_tournament_type_index', methods: ['GET'])]
+    #[Route('/', name: 'evolutionary_algorithm_tournament_type_index', methods: ['GET'])]
     public function index(TournamentTypeRepository $tournamentTypeRepository): Response
     {
         return $this->render('@EvolutionaryAlgorithm/tournament_type/index.html.twig', [
@@ -21,7 +21,7 @@ class TournamentTypeController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_tournament_type_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'evolutionary_algorithm_tournament_type_new', methods: ['GET', 'POST'])]
     public function new(Request $request, TournamentTypeRepository $tournamentTypeRepository): Response
     {
         $tournamentType = new TournamentType();
@@ -31,7 +31,7 @@ class TournamentTypeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $tournamentTypeRepository->save($tournamentType, true);
 
-            return $this->redirectToRoute('app_tournament_type_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('evolutionary_algorithm_tournament_type_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('@EvolutionaryAlgorithm/tournament_type/new.html.twig', [
@@ -40,7 +40,7 @@ class TournamentTypeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_tournament_type_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'evolutionary_algorithm_tournament_type_show', methods: ['GET'])]
     public function show(TournamentType $tournamentType): Response
     {
         return $this->render('@EvolutionaryAlgorithm/tournament_type/show.html.twig', [
@@ -48,7 +48,7 @@ class TournamentTypeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_tournament_type_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'evolutionary_algorithm_tournament_type_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, TournamentType $tournamentType, TournamentTypeRepository $tournamentTypeRepository): Response
     {
         $form = $this->createForm(TournamentTypeType::class, $tournamentType);
@@ -57,7 +57,7 @@ class TournamentTypeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $tournamentTypeRepository->save($tournamentType, true);
 
-            return $this->redirectToRoute('app_tournament_type_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('evolutionary_algorithm_tournament_type_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('@EvolutionaryAlgorithm/tournament_type/edit.html.twig', [
@@ -66,13 +66,13 @@ class TournamentTypeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_tournament_type_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'evolutionary_algorithm_tournament_type_delete', methods: ['POST'])]
     public function delete(Request $request, TournamentType $tournamentType, TournamentTypeRepository $tournamentTypeRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$tournamentType->getId(), $request->request->get('_token'))) {
             $tournamentTypeRepository->remove($tournamentType, true);
         }
 
-        return $this->redirectToRoute('app_tournament_type_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('evolutionary_algorithm_tournament_type_index', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/tournament-run')]
 class TournamentRunController extends AbstractController
 {
-    #[Route('/', name: 'app_tournament_run_index', methods: ['GET'])]
+    #[Route('/', name: 'evolutionary_algorithm_tournament_run_index', methods: ['GET'])]
     public function index(TournamentRunRepository $tournamentRunRepository): Response
     {
         return $this->render('@EvolutionaryAlgorithm/tournament_run/index.html.twig', [
@@ -24,7 +24,7 @@ class TournamentRunController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_tournament_run_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'evolutionary_algorithm_tournament_run_new', methods: ['GET', 'POST'])]
     public function new(Request $request,
                         TournamentRunRepository $tournamentRunRepository,
                         ProblemInstanceRepository $problemInstanceRepository ): Response
@@ -42,7 +42,7 @@ class TournamentRunController extends AbstractController
             $tournamentRun->setSerializedSpecimens(serialize($specimenCollection));
             $tournamentRun->setBestRating($specimenCollection->getBestMainFitness());
             $tournamentRunRepository->save($tournamentRun, true);
-            return $this->redirectToRoute('app_tournament_run_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('evolutionary_algorithm_tournament_run_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('@EvolutionaryAlgorithm/tournament_run/new.html.twig', [
@@ -51,7 +51,7 @@ class TournamentRunController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_tournament_run_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'evolutionary_algorithm_tournament_run_show', methods: ['GET'])]
     public function show(TournamentRun $tournamentRun): Response
     {
         return $this->render('@EvolutionaryAlgorithm/tournament_run/show.html.twig', [
@@ -59,7 +59,7 @@ class TournamentRunController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/run', name: 'app_tournament_run_run', methods: ['GET'])]
+    #[Route('/{id}/run', name: 'evolutionary_algorithm_tournament_run_run', methods: ['GET'])]
     public function run(TournamentRun $tournamentRun): Response
     {
         return $this->render('@EvolutionaryAlgorithm/tournament_run/run.html.twig', [
@@ -67,7 +67,7 @@ class TournamentRunController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_tournament_run_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'evolutionary_algorithm_tournament_run_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, TournamentRun $tournamentRun, TournamentRunRepository $tournamentRunRepository): Response
     {
         $form = $this->createForm(TournamentRunType::class, $tournamentRun);
@@ -76,7 +76,7 @@ class TournamentRunController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $tournamentRunRepository->save($tournamentRun, true);
 
-            return $this->redirectToRoute('app_tournament_run_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('evolutionary_algorithm_tournament_run_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('@EvolutionaryAlgorithm/tournament_run/edit.html.twig', [
@@ -85,13 +85,13 @@ class TournamentRunController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_tournament_run_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'evolutionary_algorithm_tournament_run_delete', methods: ['POST'])]
     public function delete(Request $request, TournamentRun $tournamentRun, TournamentRunRepository $tournamentRunRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$tournamentRun->getId(), $request->request->get('_token'))) {
             $tournamentRunRepository->remove($tournamentRun, true);
         }
 
-        return $this->redirectToRoute('app_tournament_run_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('evolutionary_algorithm_tournament_run_index', [], Response::HTTP_SEE_OTHER);
     }
 }
