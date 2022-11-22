@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TournamentRun{% endblock %}
+
+{% block body %}
+    <h1>TournamentRun</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ tournament_run.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_tournament_run_index') }}">back to list</a>
+
+    <a href="{{ path('app_tournament_run_edit', {'id': tournament_run.id}) }}">edit</a>
+
+    {{ include('@EvolutionaryAlgorithm/tournament_run/_delete_form.html.twig') }}
+{% endblock %}
