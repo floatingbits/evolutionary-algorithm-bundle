@@ -15,7 +15,11 @@
         <many-to-one field="tournamentConfiguration" target-entity="TournamentConfiguration" />
 
         <many-to-one field="problemInstance" target-entity="ProblemInstance" />
+        <many-to-one field="previousRun" target-entity="TournamentRun" />
 
+        <field name="serializedSpecimens" type="text" nullable="true" unique="false" />
+
+        <field name="bestRating" type="decimal" nullable="false" unique="false" />
 
 
     </entity>

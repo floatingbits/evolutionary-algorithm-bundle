@@ -39,6 +39,9 @@ class TournamentRunController extends AbstractController
             $tournamentRunner = new TournamentRunner();
             $specimenCollection = $tournamentRunner->runTournament($tournamentRun);
             /** @todo persist winner specimen collection */
+            $tournamentRun->setSerializedSpecimens(serialize($specimenCollection));
+            $tournamentRun->setBestRating($specimenCollection->getBestMainFitness());
+            $tournamentRunRepository->save($tournamentRun, true);
             return $this->redirectToRoute('app_tournament_run_index', [], Response::HTTP_SEE_OTHER);
         }
 
