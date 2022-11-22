@@ -23,3 +23,33 @@ services:
   Floatingbits\EvolutionaryAlgorithmBundle\Repository\ProblemInstanceRepository:
     autowire: true
     tags: [ 'doctrine.repository_service' ]
+
+  Floatingbits\EvolutionaryAlgorithmBundle\Controller\TournamentTypeController:
+    tags: [ 'controller.service_arguments', 'container.service_subscriber' ]
+    calls:
+      - [ setContainer, [ '@Psr\Container\ContainerInterface' ] ]
+
+
+  Floatingbits\EvolutionaryAlgorithmBundle\Repository\TournamentTypeRepository:
+    autowire: true
+    tags: [ 'doctrine.repository_service' ]
+
+  Floatingbits\EvolutionaryAlgorithmBundle\Controller\TournamentConfigurationController:
+    tags: [ 'controller.service_arguments', 'container.service_subscriber' ]
+    calls:
+      - [ setContainer, [ '@Psr\Container\ContainerInterface' ] ]
+
+
+  Floatingbits\EvolutionaryAlgorithmBundle\Repository\TournamentConfigurationRepository:
+    autowire: true
+    tags: [ 'doctrine.repository_service' ]
+
+
+  Floatingbits\EvolutionaryAlgorithmBundle\Controller\TournamentRunController:
+    tags: [ 'controller.service_arguments', 'container.service_subscriber' ]
+    calls:
+      - [ setContainer, [ '@Psr\Container\ContainerInterface' ] ]
+
+  Floatingbits\EvolutionaryAlgorithmBundle\Repository\TournamentRunRepository:
+    autowire: true
+    tags: [ 'doctrine.repository_service' ]
