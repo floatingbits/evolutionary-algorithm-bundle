@@ -13,6 +13,7 @@ class ConfigureType extends AbstractType
     {
         $builder
             ->add('defaultTime', NumberType::class)
+            ->add('num', NumberType::class)
 
         ;
     }
