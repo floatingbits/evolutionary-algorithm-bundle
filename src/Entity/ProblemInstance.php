@@ -2,6 +2,8 @@
 
 namespace Floatingbits\EvolutionaryAlgorithmBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
+use Floatingbits\EvolutionaryAlgorithmBundle\Problem\PersistableProblemInterface;
 
 class ProblemInstance
 {
@@ -13,10 +15,56 @@ class ProblemInstance
 
     private ?string $serializedInstance = null;
 
+    private ?Collection $tournamentRuns;
+
+    private ?PersistableProblemInterface $persistableProblem = null;
+
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return PersistableProblemInterface|null
+     */
+    public function getPersistableProblem(): ?PersistableProblemInterface
+    {
+        return $this->persistableProblem;
+    }
+
+    /**
+     * @param PersistableProblemInterface|null $persistableProblem
+     */
+    public function setPersistableProblem(?PersistableProblemInterface $persistableProblem): void
+    {
+        $this->persistableProblem = $persistableProblem;
+    }
+
+    /**
+     * @return Collection|TournamentRun[]
+     */
+    public function getTournamentRuns(): Collection
+    {
+        return $this->tournamentRuns;
+    }
+
+    public function addTournamentRun(TournamentRun $occupancy): self
+    {
+        if (!$this->tournamentRuns->contains($occupancy)) {
+            $this->tournamentRuns[] = $occupancy;
+        }
+
+        return $this;
+    }
+
+    public function removeTournamentRun(TournamentRun $occupancy): self
+    {
+        if ($this->tournamentRuns->contains($occupancy)) {
+            $this->tournamentRuns->removeElement($occupancy);
+        }
+
+        return $this;
     }
 
     /**
