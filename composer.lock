@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6d66df12fdf40ee9722f26ab73a21244",
+    "content-hash": "3537a06ffb97347a431c829dff0058d7",
     "packages": [
         {
             "name": "floatingbits/evolutionary-algorithm",
@@ -12,7 +12,7 @@
             "dist": {
                 "type": "path",
                 "url": "/home/soeren/Projects/evolutionary-algorithm",
-                "reference": "fdb71d1bf5393a41dae8194560e17a2483eb8449"
+                "reference": "4dbe79b5759591b11da28db5d4a37488bd96ae5f"
             },
             "require-dev": {
                 "phpstan/phpstan": "^1.9",
