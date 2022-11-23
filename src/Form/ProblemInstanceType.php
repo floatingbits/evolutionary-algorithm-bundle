@@ -21,7 +21,7 @@ class ProblemInstanceType extends AbstractType
         $problemInstance = $options['data'];
         if ($problemInstance instanceof ProblemInstance &&
             ($problem = $problemInstance->getProblem()) instanceof Problem) {
-                       
+
             $instanceClass = $problem->getInstanceClass();
             try {
                 $persistableInstance = new $instanceClass();

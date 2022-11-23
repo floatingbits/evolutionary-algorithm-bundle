@@ -33,6 +33,10 @@ class ProblemInstanceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if (is_null($problemInstance->getSerializedInstance())) {
+                $problemInstance->setSerializedInstance(' ');
+            }
+
             $entityManager->persist($problemInstance);
             $entityManager->flush();
 
