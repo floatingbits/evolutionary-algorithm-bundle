@@ -4,14 +4,14 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "884fb873b7bec22ddccf258d25f7de58",
+    "content-hash": "4de0ea02db2135796c8802b5cd1e4e7c",
     "packages": [
         {
             "name": "floatingbits/evolutionary-algorithm",
             "version": "dev-main",
             "source": {
                 "type": "git",
-                "url": "https://github.com/floatingbits/evolutionary-algorithm.git",
+                "url": "https://github.com/floatingbits/evolutionary-algorithm",
                 "reference": "ada52d79c33fd77ac5afe529dd0c1a24f4bdc85d"
             },
             "dist": {
@@ -43,10 +43,6 @@
                 }
             ],
             "description": "A php implementation of evolutionary algorithms",
-            "support": {
-                "source": "https://github.com/floatingbits/evolutionary-algorithm/tree/main",
-                "issues": "https://github.com/floatingbits/evolutionary-algorithm/issues"
-            },
             "time": "2022-11-23T15:10:47+00:00"
         }
     ],
