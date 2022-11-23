@@ -4,20 +4,27 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3537a06ffb97347a431c829dff0058d7",
+    "content-hash": "884fb873b7bec22ddccf258d25f7de58",
     "packages": [
         {
             "name": "floatingbits/evolutionary-algorithm",
             "version": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "/home/soeren/Projects/evolutionary-algorithm",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/floatingbits/evolutionary-algorithm.git",
                 "reference": "4dbe79b5759591b11da28db5d4a37488bd96ae5f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/floatingbits/evolutionary-algorithm/zipball/4dbe79b5759591b11da28db5d4a37488bd96ae5f",
+                "reference": "4dbe79b5759591b11da28db5d4a37488bd96ae5f",
+                "shasum": ""
             },
             "require-dev": {
                 "phpstan/phpstan": "^1.9",
                 "phpunit/phpunit": "^9.5"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -36,9 +43,11 @@
                 }
             ],
             "description": "A php implementation of evolutionary algorithms",
-            "transport-options": {
-                "relative": false
-            }
+            "support": {
+                "source": "https://github.com/floatingbits/evolutionary-algorithm/tree/main",
+                "issues": "https://github.com/floatingbits/evolutionary-algorithm/issues"
+            },
+            "time": "2022-11-22T12:00:42+00:00"
         }
     ],
     "packages-dev": [],
