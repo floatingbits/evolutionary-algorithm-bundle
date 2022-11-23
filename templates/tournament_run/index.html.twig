@@ -5,29 +5,7 @@
 {% block body %}
     <h1>TournamentRun index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for tournament_run in tournament_runs %}
-            <tr>
-                <td>{{ tournament_run.id }}</td>
-                <td>
-                    <a href="{{ path('evolutionary_algorithm_tournament_run_show', {'id': tournament_run.id}) }}">show</a>
-                    <a href="{{ path('evolutionary_algorithm_tournament_run_edit', {'id': tournament_run.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="2">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {{ include('@EvolutionaryAlgorithm/tournament_run/table.html.twig') }}
 
     <a href="{{ path('evolutionary_algorithm_tournament_run_new') }}">Create new</a>
 {% endblock %}

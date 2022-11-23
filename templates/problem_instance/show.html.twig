@@ -8,12 +8,16 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>SerializedInstance</th>
-                <td>{{ problem_instance.serializedInstance }}</td>
-            </tr>
-            <tr>
                 <th>Id</th>
                 <td>{{ problem_instance.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ problem_instance.name }}</td>
+            </tr>
+            <tr>
+                <th>Runs</th>
+                <td>{{ include('@EvolutionaryAlgorithm/tournament_run/table.html.twig', {tournament_runs: problem_instance.tournamentRuns}) }}</td>
             </tr>
         </tbody>
     </table>

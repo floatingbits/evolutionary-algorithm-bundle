@@ -8,7 +8,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>SerializedInstance</th>
                 <th>Id</th>
                 <th>actions</th>
             </tr>
@@ -16,7 +15,6 @@
         <tbody>
         {% for problem_instance in problem_instances %}
             <tr>
-                <td>{{ problem_instance.serializedInstance }}</td>
                 <td>{{ problem_instance.id }}</td>
                 <td>
                     <a href="{{ path('evolutionary_algorithm_problem_instance_show', {'id': problem_instance.id}) }}">show</a>

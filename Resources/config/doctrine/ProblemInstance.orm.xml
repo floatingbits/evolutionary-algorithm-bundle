@@ -14,6 +14,7 @@
 
         <field name="name" type="string" length="255" nullable="false" unique="true" />
         <many-to-one field="problem" target-entity="Problem" />
+        <one-to-many field="tournamentRuns" target-entity="TournamentRun" mapped-by="problemInstance" />
 
 
         <field name="serializedInstance" type="text" nullable="false" unique="false" />
