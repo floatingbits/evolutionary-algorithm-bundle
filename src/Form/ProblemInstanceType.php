@@ -2,6 +2,7 @@
 
 namespace Floatingbits\EvolutionaryAlgorithmBundle\Form;
 
+use Floatingbits\EvolutionaryAlgorithmBundle\Entity\Problem;
 use Floatingbits\EvolutionaryAlgorithmBundle\Entity\ProblemInstance;
 use Floatingbits\EvolutionaryAlgorithmBundle\Problem\PersistableProblemInterface;
 use Symfony\Component\Form\AbstractType;
@@ -18,8 +19,9 @@ class ProblemInstanceType extends AbstractType
         ;
         /** @var ProblemInstance $tournamentRun */
         $problemInstance = $options['data'];
-        if ($problemInstance instanceof ProblemInstance) {
-            $problem = $problemInstance->getProblem();
+        if ($problemInstance instanceof ProblemInstance &&
+            ($problem = $problemInstance->getProblem()) instanceof Problem) {
+                       
             $instanceClass = $problem->getInstanceClass();
             try {
                 $persistableInstance = new $instanceClass();
