@@ -18,7 +18,8 @@
     },
     "repositories": [{
         "type": "path",
-        "url": "/home/soeren/Projects/evolutionary-algorithm"
+        "url": "/home/soeren/Projects/evolutionary-algorithm",
+        "ignore-empty": true
     },
         {
             "type": "vcs",
