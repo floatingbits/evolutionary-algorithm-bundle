@@ -1,0 +1,5 @@
+<ul>
+    {% for specimen in specimenCollection %}
+        <li>Rating: {{ specimen.evaluation.mainFitness }} Genotype: {% include genotypeTemplatePath with genotypeParameters|merge({genotype: specimen.genotype }) %}</li>
+    {% endfor %}
+</ul>

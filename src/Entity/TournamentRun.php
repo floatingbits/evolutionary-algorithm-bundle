@@ -3,6 +3,9 @@
 namespace Floatingbits\EvolutionaryAlgorithmBundle\Entity;
 
 
+use FloatingBits\EvolutionaryAlgorithm\Specimen\SpecimenCollection;
+use Floatingbits\EvolutionaryAlgorithmBundle\Evolution\ConfigurableTournamentInterface;
+
 class TournamentRun
 {
     private ?int $id = null;
@@ -17,7 +20,26 @@ class TournamentRun
 
     private float $bestRating = 0;
 
+    private ?SpecimenCollection $specimenCollection = null;
 
+    /**
+     * @return SpecimenCollection|null
+     */
+    public function getSpecimenCollection(): ?SpecimenCollection
+    {
+        $specimenCollection = null;
+        if (!$this->specimenCollection) {
+            $specimenCollection = unserialize($this->serializedSpecimens);
+        }
+        if ($specimenCollection instanceof SpecimenCollection) {
+            $this->specimenCollection = $specimenCollection;
+        }
+        return $this->specimenCollection;
+    }
+
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;

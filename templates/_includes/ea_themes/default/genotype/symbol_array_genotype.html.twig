@@ -1,0 +1,2 @@
+
+{% for i in 0..(genotype.symbolLength - 1) %}|{% include symbolTemplatePath with {symbol: genotype.getSymbolAt(i)} %}|{% endfor %}
