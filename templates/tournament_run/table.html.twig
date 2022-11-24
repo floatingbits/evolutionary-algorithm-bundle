@@ -3,6 +3,7 @@
     <tr>
         <th>Id</th>
         <th>ProblemInstance</th>
+        <th>Tournament Configuration</th>
         <th>Best Rating</th>
         <th>actions</th>
     </tr>
@@ -12,6 +13,7 @@
         <tr>
             <td>{{ tournament_run.id }}</td>
             <td>{{ tournament_run.problemInstance }}</td>
+            <td>{{ tournament_run.tournamentConfiguration.configurableTournament }}</td>
             <td>{{ tournament_run.bestRating }}</td>
             <td>
                 <a href="{{ path('evolutionary_algorithm_tournament_run_show', {'id': tournament_run.id}) }}">show</a>

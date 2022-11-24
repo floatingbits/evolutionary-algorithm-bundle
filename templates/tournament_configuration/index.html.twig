@@ -8,7 +8,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>SerializedConfiguration</th>
+                <th>Configuration</th>
                 <th>Id</th>
                 <th>actions</th>
             </tr>
@@ -16,7 +16,7 @@
         <tbody>
         {% for tournament_configuration in tournament_configurations %}
             <tr>
-                <td>{{ tournament_configuration.serializedConfiguration }}</td>
+                <td>{{ tournament_configuration.configurableTournament }}</td>
                 <td>{{ tournament_configuration.id }}</td>
                 <td>
                     <a href="{{ path('evolutionary_algorithm_tournament_configuration_show', {'id': tournament_configuration.id}) }}">show</a>

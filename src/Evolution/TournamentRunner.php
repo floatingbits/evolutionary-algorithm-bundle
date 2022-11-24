@@ -48,12 +48,11 @@ class TournamentRunner implements TournamentRunnerInterface
         $factory = $persistableProblem->getEvolverFactory();
         $evolver = $factory->createEvolver();
 
-        $tournamentClass = $tournamentRun->getTournamentConfiguration()->getTournamentType()->getInstanceClass();
-        $tournament = new $tournamentClass();
-
+        $tournamentConfiguration = $tournamentRun->getTournamentConfiguration()->getConfigurableTournament();
         $numberOfSpecimen = 50;
-        if ($tournament instanceof ConfigurableTournamentInterface) {
-            $tournament->setTournamentConfigurationEntity($tournamentRun->getTournamentConfiguration());
+        if ($tournamentConfiguration instanceof ConfigurableTournamentInterface) {
+            $tournament = new ($tournamentConfiguration->getTournamentClass())();
+            $tournamentConfiguration->configureTournament($tournament);
         }
         if ($tournament instanceof TournamentInterface) {
             $specimenGenerator = $persistableProblem->getSpecimenGenerator();

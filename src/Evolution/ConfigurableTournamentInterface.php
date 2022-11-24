@@ -3,20 +3,14 @@
 namespace Floatingbits\EvolutionaryAlgorithmBundle\Evolution;
 
 
+use FloatingBits\EvolutionaryAlgorithm\Evolution\TournamentInterface;
 use Floatingbits\EvolutionaryAlgorithmBundle\Entity\TournamentConfiguration;
 
-interface ConfigurableTournamentInterface
+interface ConfigurableTournamentInterface extends \Stringable
 {
-    /**
-     * @return TournamentConfiguration
-     */
-    public function getTournamentConfigurationEntity(): TournamentConfiguration;
 
-    /**
-     * @param TournamentConfiguration $tournamentConfigurationEntity
-     */
-    public function setTournamentConfigurationEntity(TournamentConfiguration $tournamentConfigurationEntity): void;
-
+    public function configureTournament(TournamentInterface $tournament): void;
+    public function getTournamentClass(): string;
     public function getFormClass(): string;
 
 }

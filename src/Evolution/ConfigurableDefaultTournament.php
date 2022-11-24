@@ -7,35 +7,75 @@ use FloatingBits\EvolutionaryAlgorithm\Evolution\EvolverInterface;
 use FloatingBits\EvolutionaryAlgorithm\Evolution\TournamentInterface;
 use FloatingBits\EvolutionaryAlgorithm\Specimen\SpecimenCollection;
 use Floatingbits\EvolutionaryAlgorithmBundle\Entity\TournamentConfiguration;
+use Floatingbits\EvolutionaryAlgorithmBundle\Form\ConfigurableDefaultTournamentType;
 
-class ConfigurableDefaultTournament extends DefaultTournament implements ConfigurableTournamentInterface
+class ConfigurableDefaultTournament  implements ConfigurableTournamentInterface
 {
-    /** @var TournamentConfiguration */
-    private $tournamentConfigurationInstance;
-    public function getTournamentConfigurationEntity(): TournamentConfiguration
+    /** @var int  */
+    private int $numRounds;
+    /** @var int  */
+    private int $cleanupAfterNRounds;
+
+    /**
+     * @return int
+     */
+    public function getNumRounds(): int
     {
-        $this->tournamentConfigurationInstance->setSerializedConfiguration(serialize($this->getSerializable()));
-        return $this->tournamentConfigurationInstance;
+        return $this->numRounds;
     }
 
-    public function setTournamentConfigurationEntity(TournamentConfiguration $tournamentConfigurationEntity): void
+    /**
+     * @param int $numRounds
+     */
+    public function setNumRounds(int $numRounds): void
     {
-        $this->tournamentConfigurationInstance = $tournamentConfigurationEntity;
-        $this->setSerializable(unserialize($this->tournamentConfigurationInstance->getSerializedConfiguration()));
-    }
-    private function setSerializable($config) {
-        $this->setNumRounds($config['numRounds']);
-        $this->setCleanupAfterNRounds($config['cleanupAfterNRounds']);
-    }
-    private function getSerializable() {
-        return [
-            'cleanupAfterNRounds' => $this->getCleanupAfterNRounds(),
-            'numRounds' => $this->getNumRounds(),
-        ];
+        $this->numRounds = $numRounds;
     }
 
+    /**
+     * @return int
+     */
+    public function getCleanupAfterNRounds(): int
+    {
+        return $this->cleanupAfterNRounds;
+    }
+
+    /**
+     * @param int $cleanupAfterNRounds
+     */
+    public function setCleanupAfterNRounds(int $cleanupAfterNRounds): void
+    {
+        $this->cleanupAfterNRounds = $cleanupAfterNRounds;
+    }
+
+    /**
+     * @param DefaultTournament $tournament
+     * @return void
+     * @throws \Exception
+     */
+    public function configureTournament(TournamentInterface $tournament): void {
+        if ($tournament instanceof DefaultTournament ) {
+            $tournament->setCleanupAfterNRounds($this->cleanupAfterNRounds);
+            $tournament->setNumRounds($this->numRounds);
+        }
+        else {
+            throw new \Exception(sprintf('Wrong class %s instead of %s', get_class($tournament), $this->getTournamentClass()));
+        }
+
+    }
+    public function getTournamentClass(): string
+    {
+        return DefaultTournament::class;
+    }
     public function getFormClass(): string
     {
-        // TODO: Implement getFormClass() method.
+        return ConfigurableDefaultTournamentType::class;
+    }
+    public function __toString()
+    {
+        return join(', ', [
+            sprintf('Number of rounds: %s', $this->getNumRounds()),
+            sprintf('Cleanup after num rounds: %s', $this->getCleanupAfterNRounds())
+        ]);
     }
 }
