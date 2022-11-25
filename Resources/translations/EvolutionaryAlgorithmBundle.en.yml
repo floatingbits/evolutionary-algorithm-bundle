@@ -1,0 +1,7 @@
+problem:
+  index:
+    help_text: 'These are abstract problems and their mappings to a class, that enables the configuration of a concrete problem instance.'
+problem_instance:
+  index:
+    help_text: 'These are problem instances that 
+    belong to an abstract problem, but are defined concretely. For example by defining concrete jobs, their cost and the number of machines that are available for distributing said jobs.'

@@ -1,0 +1,27 @@
+problem:
+  index:
+    help_text: 'Hier finden Sie allgemeine Problemstellungen und die Zuordnungen zu einer Klasse, die die Konfiguration 
+    einer konkreten Probleminstanz ermöglicht.'
+
+problem_instance:
+  index:
+    help_text: 'Nachfolgend sind Probleminstanzen zu finden, die zu einem abstrakten Problem gehören, aber konkret
+     definiert sind. Zum Beispiel in dem Jobs mit bestimmten Kosten erstellt werden, die auf einer definierten Anzahl 
+     an Maschinen zu erledigen sind.'
+
+tournament_type:
+  index:
+    help_text: 'Bei einem Turnier treten mehrere Exemplare ("Gene") gegeneinander an und entwickeln sich 
+    gemäß dem evolutionären Algorithmus weiter. Das "Default Tournament" hat zwei Parameter: Die Anzahl der Gesamtrunden
+     und die Anzahl an Runden nach denen ein "Cleanup", eine Bereinigung von Gen-Duplikaten stattfindet.'
+
+tournament_configuration:
+  index:
+    help_text: 'Eine Turnierkonfiguration ist ein in der Datenbank gespeicherter Parametersatz, 
+    dessen einzelnen Parameter sich nach dem entsprechenden Turniertyp richten.'
+
+tournament_run:
+  index:
+    help_text: 'Hier finden sich die einzelnen Turnierdurchläufe. Sie besitzen eine Endaufstellung an Gen-Exemplaren, die 
+     in der Detailansicht eingesehen werden kann und - aus Bequemlichkeit redundant gespeichert - das beste Rating 
+     (bzw. die geringsten Kosten) der letzten Generation.'
