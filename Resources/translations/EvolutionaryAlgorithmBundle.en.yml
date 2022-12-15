@@ -5,3 +5,19 @@ problem_instance:
   index:
     help_text: 'These are problem instances that 
     belong to an abstract problem, but are defined concretely. For example by defining concrete jobs, their cost and the number of machines that are available for distributing said jobs.'
+
+
+tournament_type:
+  index:
+    help_text: 'A tournament is a process in which several specimen compete each other and evolve according to the algorithm. The "Default Tournament" features two parameters: The number of total rounds
+     and the number of rounds after which a "cleanup", an elemination of genetic duplicates, will happen.'
+
+tournament_configuration:
+  index:
+    help_text: 'A tournament configuration is a set of parameters stored in the database. 
+    The individual parameters are based on the actual tournament type.'
+
+tournament_run:
+  index:
+    help_text: 'Here you can find the actual tournament runs. In the detailed view you can see a final set of specimen, including their genetic code 
+     and the last generations best rating (or lowest costs), that has been stored redundantly for convenience.'
