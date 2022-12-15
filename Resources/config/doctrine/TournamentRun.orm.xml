@@ -19,7 +19,7 @@
 
         <field name="serializedSpecimens" type="text" nullable="true" unique="false" />
 
-        <field name="bestRating" type="decimal" nullable="false" unique="false" />
+        <field name="bestRating" type="decimal" nullable="false" precision="12" scale="2" unique="false" />
 
 
     </entity>

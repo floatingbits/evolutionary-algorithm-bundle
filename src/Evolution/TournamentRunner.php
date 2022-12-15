@@ -3,13 +3,10 @@
 namespace Floatingbits\EvolutionaryAlgorithmBundle\Evolution;
 
 use FloatingBits\EvolutionaryAlgorithm\Evolution\TournamentInterface;
-use FloatingBits\EvolutionaryAlgorithm\Example\AssignJobToMachinesExample\AssignJobToMachinesEvolverFactory;
-use FloatingBits\EvolutionaryAlgorithm\Example\AssignJobToMachinesExample\Problem\Job;
+
 use FloatingBits\EvolutionaryAlgorithm\Problem\ProblemInterface;
 use FloatingBits\EvolutionaryAlgorithm\Specimen\SpecimenCollection;
-use Floatingbits\EvolutionaryAlgorithmBundle\Entity\TournamentConfiguration;
 use Floatingbits\EvolutionaryAlgorithmBundle\Entity\TournamentRun;
-use Floatingbits\EvolutionaryAlgorithmBundle\Problem\Example\AssignJobToMachinesExample\PersistableProblem;
 use Floatingbits\EvolutionaryAlgorithmBundle\Problem\PersistableProblemInterface;
 
 class TournamentRunner implements TournamentRunnerInterface
@@ -31,10 +28,13 @@ class TournamentRunner implements TournamentRunnerInterface
             $tournamentConfiguration->configureTournament($tournament);
         }
         if ($tournament instanceof TournamentInterface) {
-            $specimenGenerator = $persistableProblem->getSpecimenGenerator();
-            $specimenCollection = $specimenGenerator->generateSpecimen($numberOfSpecimen);
-            $tournament->setEvolver($evolver);
+            if (!$specimenCollection = $tournamentRun->getSpecimenCollection()) {
+                $specimenGenerator = $persistableProblem->getSpecimenGenerator();
+                $specimenCollection = $specimenGenerator->generateSpecimen($numberOfSpecimen);
+            }
             $tournament->setSpecimenCollection($specimenCollection);
+
+            $tournament->setEvolver($evolver);
             $tournament->runTournament();
             return $tournament->getSpecimenCollection();
         }

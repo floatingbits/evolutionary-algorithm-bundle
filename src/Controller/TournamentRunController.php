@@ -20,7 +20,7 @@ class TournamentRunController extends AbstractController
     public function index(TournamentRunRepository $tournamentRunRepository): Response
     {
         return $this->render('@EvolutionaryAlgorithm/tournament_run/index.html.twig', [
-            'tournament_runs' => $tournamentRunRepository->findAll(),
+            'tournament_runs' => $tournamentRunRepository->findBy([], ['id' => 'desc']),
         ]);
     }
 
@@ -83,6 +83,27 @@ class TournamentRunController extends AbstractController
             'tournament_run' => $tournamentRun,
             'form' => $form,
         ]);
+    }
+
+    #[Route('/{id}/rerun', name: 'evolutionary_algorithm_tournament_run_rerun', methods: ['POST'])]
+    public function rerun(Request $request, TournamentRun $tournamentRun, TournamentRunRepository $tournamentRunRepository): Response
+    {
+        $newRun = new TournamentRun();
+        $newRun->setProblemInstance($tournamentRun->getProblemInstance());
+        $newRun->setPreviousRun($tournamentRun);
+        $newRun->setSerializedSpecimens($tournamentRun->getSerializedSpecimens());
+        $newRun->setTournamentConfiguration($tournamentRun->getTournamentConfiguration());
+
+        $tournamentRunRepository->save($newRun, true);
+        $tournamentRunner = new TournamentRunner();
+        $specimenCollection = $tournamentRunner->runTournament($newRun);
+        /** @todo persist winner specimen collection */
+        $newRun->setSerializedSpecimens(serialize($specimenCollection));
+        $newRun->setBestRating($specimenCollection->getBestMainFitness());
+        $tournamentRunRepository->save($newRun, true);
+
+        return $this->redirectToRoute('evolutionary_algorithm_tournament_run_index', [], Response::HTTP_SEE_OTHER);
+
     }
 
     #[Route('/{id}', name: 'evolutionary_algorithm_tournament_run_delete', methods: ['POST'])]
