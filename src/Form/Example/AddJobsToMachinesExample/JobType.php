@@ -13,7 +13,9 @@ class JobType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('defaultTime', NumberType::class)
+            ->add('defaultTime', NumberType::class, [
+                'input' => 'number'
+            ])
 
         ;
     }

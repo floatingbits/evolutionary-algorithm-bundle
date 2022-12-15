@@ -6,6 +6,7 @@ use Floatingbits\EvolutionaryAlgorithmBundle\Problem\Example\AssignJobToMachines
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ConfigureType extends AbstractType
@@ -17,7 +18,11 @@ class ConfigureType extends AbstractType
                 [
                     'entry_type' => JobType::class,
                     'allow_add' =>true,
-                    'prototype' => true
+                    'prototype' => true,
+                    'setter' => function (PersistableProblem &$persistableProblem, array $jobs, FormInterface $form): void {
+
+                        $persistableProblem->setJobs(array_values($jobs));
+                    }
                 ])
             ->add('numberOfMachines')
 
