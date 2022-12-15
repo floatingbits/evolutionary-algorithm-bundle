@@ -18,6 +18,9 @@
             <td>
                 <a href="{{ path('evolutionary_algorithm_tournament_run_show', {'id': tournament_run.id}) }}">show</a>
                 <a href="{{ path('evolutionary_algorithm_tournament_run_edit', {'id': tournament_run.id}) }}">edit</a>
+                <form method="post" action="{{ path('evolutionary_algorithm_tournament_run_rerun', {'id': tournament_run.id}) }}">
+                    <button class="btn btn-primary">re-run</button>
+                </form>
             </td>
         </tr>
     {% else %}

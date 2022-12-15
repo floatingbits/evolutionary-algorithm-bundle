@@ -5,7 +5,8 @@
 {% block main %}
     <h1>TournamentRun index</h1>
     <p>{{ 'tournament_run.index.help_text'|trans }}</p>
+    <a href="{{ path('evolutionary_algorithm_tournament_run_new') }}">Create new</a>
     {{ include('@EvolutionaryAlgorithm/tournament_run/table.html.twig') }}
 
-    <a href="{{ path('evolutionary_algorithm_tournament_run_new') }}">Create new</a>
+
 {% endblock %}
