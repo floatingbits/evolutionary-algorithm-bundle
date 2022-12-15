@@ -34,7 +34,10 @@ class ProblemInstance
         if ($this->getSerializedInstance()) {
             try {
                 $deserialized = unserialize($this->getSerializedInstance());
-                $this->persistableProblem = $deserialized;
+                if ($deserialized instanceof PersistableProblemInterface) {
+                    $this->persistableProblem = $deserialized;
+                }
+
             }
             catch (\Exception $e) {
                 //Maybe some stale values in the database?
