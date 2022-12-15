@@ -11,10 +11,11 @@
 {% import _self as formMacros %}
 
 {{ form_start(form) }}
+    {{ form_label(form.persistableProblem) }}
+    {{ form_errors(form.persistableProblem) }}
+
     {{ form_label(form.persistableProblem.jobs) }}
     {{ form_errors(form.persistableProblem.jobs) }}
-
-
     <div data-controller="form-collection"
          data-form-collection-max-items-value="10"
          data-form-collection-prototype-value="{{ formMacros.collection_item(form.persistableProblem.jobs.vars.prototype)|json_encode }}">
@@ -30,6 +31,8 @@
             add
         </button>
     </div>
+    {{ form_row(form.persistableProblem.numberOfMachines) }}
+
     {{ form_rest(form) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
