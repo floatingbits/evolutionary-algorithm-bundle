@@ -30,6 +30,18 @@ class ProblemInstance
      */
     public function getPersistableProblem(): ?PersistableProblemInterface
     {
+
+        if (!$this->persistableProblem && $this->getSerializedInstance()) {
+            try {
+                $deserialized = unserialize($this->getSerializedInstance());
+                $this->persistableProblem = $deserialized;
+            }
+            catch (\Exception $e) {
+                //Maybe some stale values in the database?
+            }
+
+
+        }
         return $this->persistableProblem;
     }
 
@@ -39,6 +51,7 @@ class ProblemInstance
     public function setPersistableProblem(?PersistableProblemInterface $persistableProblem): void
     {
         $this->persistableProblem = $persistableProblem;
+        $this->setSerializedInstance(serialize($persistableProblem));
     }
 
     /**

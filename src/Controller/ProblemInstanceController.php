@@ -5,6 +5,7 @@ namespace Floatingbits\EvolutionaryAlgorithmBundle\Controller;
 use Doctrine\ORM\EntityManagerInterface;
 use Floatingbits\EvolutionaryAlgorithmBundle\Entity\ProblemInstance;
 use Floatingbits\EvolutionaryAlgorithmBundle\Form\ProblemInstanceType;
+use Floatingbits\EvolutionaryAlgorithmBundle\Problem\PersistableProblemInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -68,10 +69,13 @@ class ProblemInstanceController extends AbstractController
 
             return $this->redirectToRoute('evolutionary_algorithm_problem_instance_index', [], Response::HTTP_SEE_OTHER);
         }
-
+        /** @var PersistableProblemInterface $persistableProblemInstance */
+        $persistableProblemInstance = new ($problemInstance->getProblem()->getInstanceClass())();
+        $formTemplate = $persistableProblemInstance->getFormTemplate();
         return $this->renderForm('@EvolutionaryAlgorithm/problem_instance/edit.html.twig', [
             'problem_instance' => $problemInstance,
             'form' => $form,
+            'form_template' => $formTemplate
         ]);
     }
 

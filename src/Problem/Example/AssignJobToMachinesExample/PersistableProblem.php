@@ -11,31 +11,21 @@ use Floatingbits\EvolutionaryAlgorithmBundle\Problem\PersistableProblemInterface
 class PersistableProblem extends AbstractProblem implements PersistableProblemInterface
 {
 
-    /** @var ProblemInstance */
-    private $problemInstanceEntity;
 
-    /**
-     * @return ProblemInstance
-     */
-    public function getProblemInstanceEntity(): ProblemInstance
-    {
-        return $this->problemInstanceEntity;
-    }
 
-    /**
-     * @param ProblemInstance $problemInstanceEntity
-     */
-    public function setProblemInstanceEntity(ProblemInstance $problemInstanceEntity): void
-    {
-        $this->problemInstanceEntity = $problemInstanceEntity;
-    }
+    /** @var Job[] */
+    private $jobs;
+
+    /** @var int */
+    private $numberOfMachines;
+
 
     /**
      * @param Job[] $jobs
      * @return void
      */
     public function setJobs(array $jobs): void {
-        $this->problemInstanceEntity->setSerializedInstance($this->convertFromJobs($jobs));
+        $this->jobs = $jobs;
     }
 
     /**
@@ -48,28 +38,14 @@ class PersistableProblem extends AbstractProblem implements PersistableProblemIn
         $this->setJobs($jobs);
     }
 
-    /**
-     * @param Job[] $jobs
-     * @return string
-     */
-    private function convertFromJobs(array $jobs): string {
-        return serialize($jobs);
-    }
 
-    /**
-     * @param ProblemInstance $problemInstanceEntity
-     * @return Job[]
-     */
-    private function convertToJobs(ProblemInstance $problemInstanceEntity): array {
-            return unserialize($problemInstanceEntity->getSerializedInstance());
-    }
 
     /**
      * @return Job[]
      */
     public function getJobs(): array
     {
-        return $this->convertToJobs($this->problemInstanceEntity);
+        return $this->jobs;
     }
 
 
@@ -82,11 +58,29 @@ class PersistableProblem extends AbstractProblem implements PersistableProblemIn
     }
 
     /**
-     * @todo implement properly
+     * @return string
+     */
+    public function getFormTemplate(): string
+    {
+        return '@EvolutionaryAlgorithm/problem_instance/example/add_jobs_to_machines_example/_form.html.twig';
+    }
+
+    /**
      * @return int
      */
-    public function getNumberOfMachines(): int {
-        return 5;
+    public function getNumberOfMachines(): int
+    {
+        return $this->numberOfMachines;
     }
+
+    /**
+     * @param int $numberOfMachines
+     */
+    public function setNumberOfMachines(int $numberOfMachines): void
+    {
+        $this->numberOfMachines = $numberOfMachines;
+    }
+
+
 
 }

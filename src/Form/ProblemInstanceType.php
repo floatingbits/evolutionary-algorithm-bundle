@@ -7,6 +7,7 @@ use Floatingbits\EvolutionaryAlgorithmBundle\Entity\ProblemInstance;
 use Floatingbits\EvolutionaryAlgorithmBundle\Problem\PersistableProblemInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProblemInstanceType extends AbstractType

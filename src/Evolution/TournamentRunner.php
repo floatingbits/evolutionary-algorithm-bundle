@@ -18,32 +18,8 @@ class TournamentRunner implements TournamentRunnerInterface
     {
         $problem = $tournamentRun->getProblemInstance()->getProblem();
         /** @var PersistableProblemInterface&ProblemInterface $persistableProblem */
-        $persistableProblem = new ($problem->getInstanceClass())();
-        $persistableProblem->setProblemInstanceEntity($tournamentRun->getProblemInstance());
-        if ($persistableProblem instanceof PersistableProblem) {
-            $persistableProblem->setJobs([
-                new Job(32),
-                new Job(44),
-                new Job(52),
-                new Job(40),
-                new Job(10.1),
-                new Job(31),
-                new Job(19),
-                new Job(31),
-                new Job(52),
-                new Job(40),
-                new Job(10.1),
-                new Job(31),
-                new Job(19),
-                new Job(31),
-                new Job(52),
-                new Job(40),
-                new Job(10.1),
-                new Job(31),
-                new Job(19),
-                new Job(31),
-            ]);
-        }
+        $persistableProblem = $tournamentRun->getProblemInstance()->getPersistableProblem();
+
 
         $factory = $persistableProblem->getEvolverFactory();
         $evolver = $factory->createEvolver();

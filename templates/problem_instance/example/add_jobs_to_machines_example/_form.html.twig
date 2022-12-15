@@ -1,0 +1,35 @@
+{% macro collection_item(form) %}
+    <div data-form-collection-target="field">
+        {{ form_widget(form) }}
+        <button type="button"
+                data-action="form-collection#removeItem">
+            remove
+        </button>
+    </div>
+{% endmacro %}
+
+{% import _self as formMacros %}
+
+{{ form_start(form) }}
+    {{ form_label(form.persistableProblem.jobs) }}
+    {{ form_errors(form.persistableProblem.jobs) }}
+
+
+    <div data-controller="form-collection"
+         data-form-collection-max-items-value="10"
+         data-form-collection-prototype-value="{{ formMacros.collection_item(form.persistableProblem.jobs.vars.prototype)|json_encode }}">
+        <div data-form-collection-target="fields">
+            {% do form.persistableProblem.jobs.setRendered %}
+            {% for field in form.persistableProblem.jobs %}
+                {{ formMacros.collection_item(field) }}
+            {% endfor %}
+        </div>
+        <button type="button"
+                data-action="form-collection#addItem"
+                data-form-collection-target="addButton">
+            add
+        </button>
+    </div>
+    {{ form_rest(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
