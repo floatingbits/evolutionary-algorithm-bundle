@@ -31,13 +31,14 @@ class ProblemInstance
     public function getPersistableProblem(): ?PersistableProblemInterface
     {
 
-        if (!$this->persistableProblem && $this->getSerializedInstance()) {
+        if ($this->getSerializedInstance()) {
             try {
                 $deserialized = unserialize($this->getSerializedInstance());
                 $this->persistableProblem = $deserialized;
             }
             catch (\Exception $e) {
                 //Maybe some stale values in the database?
+
             }
 
 
