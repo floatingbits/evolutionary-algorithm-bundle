@@ -18,9 +18,7 @@
             <td>
                 <a href="{{ path('evolutionary_algorithm_tournament_run_show', {'id': tournament_run.id}) }}">show</a>
                 <a href="{{ path('evolutionary_algorithm_tournament_run_edit', {'id': tournament_run.id}) }}">edit</a>
-                <form method="post" action="{{ path('evolutionary_algorithm_tournament_run_rerun', {'id': tournament_run.id}) }}">
-                    <button class="btn btn-primary">re-run</button>
-                </form>
+                {{ include('@EvolutionaryAlgorithm/tournament_run/_rerun_form.html.twig', {'id': tournament_run.id}) }}
             </td>
         </tr>
     {% else %}

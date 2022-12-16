@@ -102,7 +102,7 @@ class TournamentRunController extends AbstractController
         $newRun->setBestRating($specimenCollection->getBestMainFitness());
         $tournamentRunRepository->save($newRun, true);
 
-        return $this->redirectToRoute('evolutionary_algorithm_tournament_run_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('evolutionary_algorithm_tournament_run_show', ['id' => $newRun->getId()], Response::HTTP_SEE_OTHER);
 
     }
 

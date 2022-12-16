@@ -4,7 +4,7 @@
 
 {% block main %}
     <h1>TournamentRun</h1>
-
+    {{ include('@EvolutionaryAlgorithm/tournament_run/_rerun_form.html.twig', {'id': tournament_run.id}) }}
     <table class="table">
         <tbody>
             <tr>
