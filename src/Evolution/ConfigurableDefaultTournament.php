@@ -71,7 +71,7 @@ class ConfigurableDefaultTournament  implements ConfigurableTournamentInterface
     {
         return ConfigurableDefaultTournamentType::class;
     }
-    public function __toString()
+    public function __toString(): string
     {
         return join(', ', [
             sprintf('Number of rounds: %s', $this->getNumRounds()),

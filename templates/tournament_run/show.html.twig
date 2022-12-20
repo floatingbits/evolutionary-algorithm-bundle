@@ -3,31 +3,32 @@
 {% block title %}TournamentRun{% endblock %}
 
 {% block main %}
-    <h1>TournamentRun</h1>
+    <h1>TournamentRun {{ tournament_run.id }}</h1>
     {{ include('@EvolutionaryAlgorithm/tournament_run/_rerun_form.html.twig', {'id': tournament_run.id}) }}
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ tournament_run.id }}</td>
-                <th>Specimens</th>
-                {# Next step will be to remove the hard-coded parts and make this self-adjusting to different types of problems #}
-                <td>{% include '@EvolutionaryAlgorithm/_includes/ea_themes/default/specimen/specimen_collection.html.twig' with
-                        {
-                            specimenCollection: tournament_run.specimenCollection,
-                            genotypeTemplatePath: '@EvolutionaryAlgorithm/_includes/ea_themes/default/genotype/symbol_array_genotype.html.twig',
-                            genotypeParameters: {
-                                symbolTemplatePath: '@EvolutionaryAlgorithm/_includes/ea_themes/default/genotype/symbol/simple_symbol.html.twig'
-                            }
-                        }
-                    %}</td>
-            </tr>
-        </tbody>
-    </table>
-
     <a href="{{ path('evolutionary_algorithm_tournament_run_index') }}">back to list</a>
 
     <a href="{{ path('evolutionary_algorithm_tournament_run_edit', {'id': tournament_run.id}) }}">edit</a>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Configuration</th>
+                <td>{{ tournament_run.tournamentConfiguration.configurableTournament }}</td>
+                <th>Cumulated Number Of Rounds</th>
+                <td>{{ tournament_run.cumulatedNumRounds }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {% include '@EvolutionaryAlgorithm/_includes/ea_themes/default/specimen/specimen_collection.html.twig' with
+        {
+            specimenCollection: tournament_run.sortedSpecimenCollection,
+            genotypeTemplatePath: '@EvolutionaryAlgorithm/_includes/ea_themes/default/genotype/symbol_array_genotype.html.twig',
+            genotypeParameters: {
+            symbolTemplatePath: '@EvolutionaryAlgorithm/_includes/ea_themes/default/genotype/symbol/simple_symbol.html.twig'
+        }
+        }
+    %}
+
+
 
     {{ include('@EvolutionaryAlgorithm/tournament_run/_delete_form.html.twig') }}
 {% endblock %}

@@ -37,10 +37,11 @@ class TournamentRunController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $tournamentRunRepository->save($tournamentRun, true);
             $tournamentRunner = new TournamentRunner();
-            $specimenCollection = $tournamentRunner->runTournament($tournamentRun);
+            $tournamentRunResult = $tournamentRunner->runTournament($tournamentRun);
             /** @todo persist winner specimen collection */
-            $tournamentRun->setSerializedSpecimens(serialize($specimenCollection));
-            $tournamentRun->setBestRating($specimenCollection->getBestMainFitness());
+            $tournamentRun->setSerializedSpecimens(serialize($tournamentRunResult->getSpecimenCollection()));
+            $tournamentRun->setBestRating($tournamentRunResult->getSpecimenCollection()->getBestMainFitness());
+            $tournamentRun->setCumulatedNumRounds($tournamentRunResult->getNumRounds());
             $tournamentRunRepository->save($tournamentRun, true);
             return $this->redirectToRoute('evolutionary_algorithm_tournament_run_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -96,10 +97,11 @@ class TournamentRunController extends AbstractController
 
         $tournamentRunRepository->save($newRun, true);
         $tournamentRunner = new TournamentRunner();
-        $specimenCollection = $tournamentRunner->runTournament($newRun);
+        $tournamentRunResult = $tournamentRunner->runTournament($newRun);
         /** @todo persist winner specimen collection */
-        $newRun->setSerializedSpecimens(serialize($specimenCollection));
-        $newRun->setBestRating($specimenCollection->getBestMainFitness());
+        $newRun->setSerializedSpecimens(serialize($tournamentRunResult->getSpecimenCollection()));
+        $newRun->setBestRating($tournamentRunResult->getSpecimenCollection()->getBestMainFitness());
+        $newRun->setCumulatedNumRounds($tournamentRun->getCumulatedNumRounds() + $tournamentRunResult->getNumRounds());
         $tournamentRunRepository->save($newRun, true);
 
         return $this->redirectToRoute('evolutionary_algorithm_tournament_run_show', ['id' => $newRun->getId()], Response::HTTP_SEE_OTHER);

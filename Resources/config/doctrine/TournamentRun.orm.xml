@@ -21,6 +21,8 @@
 
         <field name="bestRating" type="decimal" nullable="false" precision="12" scale="2" unique="false" />
 
+        <field name="cumulatedNumRounds" type="integer" nullable="false"  unique="false" />
+
 
     </entity>
 

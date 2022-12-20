@@ -5,6 +5,7 @@
         <th>ProblemInstance</th>
         <th>Tournament Configuration</th>
         <th>Best Rating</th>
+        <th>Cumulated Number of Rounds</th>
         <th>actions</th>
     </tr>
     </thead>
@@ -15,6 +16,7 @@
             <td>{{ tournament_run.problemInstance }}</td>
             <td>{{ tournament_run.tournamentConfiguration.configurableTournament }}</td>
             <td>{{ tournament_run.bestRating }}</td>
+            <td>{{ tournament_run.cumulatedNumRounds }}</td>
             <td>
                 <a href="{{ path('evolutionary_algorithm_tournament_run_show', {'id': tournament_run.id}) }}">show</a>
                 <a href="{{ path('evolutionary_algorithm_tournament_run_edit', {'id': tournament_run.id}) }}">edit</a>

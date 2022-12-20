@@ -4,7 +4,8 @@ namespace Floatingbits\EvolutionaryAlgorithmBundle\Entity;
 
 
 use FloatingBits\EvolutionaryAlgorithm\Specimen\SpecimenCollection;
-use Floatingbits\EvolutionaryAlgorithmBundle\Evolution\ConfigurableTournamentInterface;
+use FloatingBits\EvolutionaryAlgorithm\Specimen\SpecimenInterface;
+use FloatingBits\EvolutionaryAlgorithm\Genotype\SortableGenotypeInterface;
 
 class TournamentRun
 {
@@ -20,7 +21,27 @@ class TournamentRun
 
     private float $bestRating = 0;
 
+    private int $cumulatedNumRounds = 0;
+
     private ?SpecimenCollection $specimenCollection = null;
+
+    /**
+     * @return int
+     */
+    public function getCumulatedNumRounds(): int
+    {
+        return $this->cumulatedNumRounds;
+    }
+
+    /**
+     * @param int $cumulatedNumRounds
+     */
+    public function setCumulatedNumRounds(int $cumulatedNumRounds): void
+    {
+        $this->cumulatedNumRounds = $cumulatedNumRounds;
+    }
+
+
 
     /**
      * @return SpecimenCollection|null
@@ -35,6 +56,22 @@ class TournamentRun
             $this->specimenCollection = $specimenCollection;
         }
         return $this->specimenCollection;
+    }
+
+    public function getSortedSpecimenCollection(): ?SpecimenCollection
+    {
+        $specimenCollection = $this->getSpecimenCollection();
+        if ($specimenCollection) {
+            $specimenCollection->sortByFitness(function(SpecimenInterface $a, SpecimenInterface $b) {
+                if ($a->getGenotype() instanceof SortableGenotypeInterface && $b->getGenotype() instanceof SortableGenotypeInterface) {
+                    return $a->getGenotype()->getComparableString() > $b->getGenotype()->getComparableString();
+                }
+
+                return 0;
+            });
+            return $specimenCollection;
+        }
+        return null;
     }
 
     /**

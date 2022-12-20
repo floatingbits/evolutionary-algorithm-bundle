@@ -5,5 +5,5 @@ use Floatingbits\EvolutionaryAlgorithmBundle\Entity\TournamentRun;
 
 interface TournamentRunnerInterface
 {
-    public function runTournament(TournamentRun $tournamentRun): SpecimenCollection;
+    public function runTournament(TournamentRun $tournamentRun): TournamentRunResultInterface;
 }

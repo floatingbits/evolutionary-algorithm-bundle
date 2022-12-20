@@ -11,9 +11,8 @@ use Floatingbits\EvolutionaryAlgorithmBundle\Problem\PersistableProblemInterface
 
 class TournamentRunner implements TournamentRunnerInterface
 {
-    public function runTournament(TournamentRun $tournamentRun): SpecimenCollection
+    public function runTournament(TournamentRun $tournamentRun): TournamentRunResultInterface
     {
-        $problem = $tournamentRun->getProblemInstance()->getProblem();
         /** @var PersistableProblemInterface&ProblemInterface $persistableProblem */
         $persistableProblem = $tournamentRun->getProblemInstance()->getPersistableProblem();
 
@@ -27,6 +26,9 @@ class TournamentRunner implements TournamentRunnerInterface
             $tournament = new ($tournamentConfiguration->getTournamentClass())();
             $tournamentConfiguration->configureTournament($tournament);
         }
+        else {
+            /** @todo Handle exception */
+        }
         if ($tournament instanceof TournamentInterface) {
             if (!$specimenCollection = $tournamentRun->getSpecimenCollection()) {
                 $specimenGenerator = $persistableProblem->getSpecimenGenerator();
@@ -36,7 +38,7 @@ class TournamentRunner implements TournamentRunnerInterface
 
             $tournament->setEvolver($evolver);
             $tournament->runTournament();
-            return $tournament->getSpecimenCollection();
+            return new TournamentRunResult($tournament->getSpecimenCollection(), $tournamentConfiguration->getNumRounds());
         }
 
     }
