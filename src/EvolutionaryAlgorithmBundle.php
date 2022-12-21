@@ -2,6 +2,7 @@
 
 namespace Floatingbits\EvolutionaryAlgorithmBundle;
 
+use Floatingbits\EvolutionaryAlgorithmBundle\DependencyInjection\Compiler\TwigPass;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -14,8 +15,4 @@ class EvolutionaryAlgorithmBundle extends Bundle
     {
         return \dirname(__DIR__);
     }
-
-
-
-
 }

@@ -18,13 +18,10 @@
             </tr>
         </tbody>
     </table>
-    {% include '@EvolutionaryAlgorithm/_includes/ea_themes/default/specimen/specimen_collection.html.twig' with
+    {% include template_provider.getTemplateForObject(tournament_run.sortedSpecimenCollection) with
         {
             specimenCollection: tournament_run.sortedSpecimenCollection,
-            genotypeTemplatePath: '@EvolutionaryAlgorithm/_includes/ea_themes/default/genotype/symbol_array_genotype.html.twig',
-            genotypeParameters: {
-            symbolTemplatePath: '@EvolutionaryAlgorithm/_includes/ea_themes/default/genotype/symbol/simple_symbol.html.twig'
-        }
+            templateProvider: template_provider
         }
     %}
 

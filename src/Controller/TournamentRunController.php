@@ -8,6 +8,7 @@ use Floatingbits\EvolutionaryAlgorithmBundle\Evolution\TournamentRunner;
 use Floatingbits\EvolutionaryAlgorithmBundle\Form\TournamentRunType;
 use Floatingbits\EvolutionaryAlgorithmBundle\Repository\ProblemInstanceRepository;
 use Floatingbits\EvolutionaryAlgorithmBundle\Repository\TournamentRunRepository;
+use Floatingbits\EvolutionaryAlgorithmBundle\Theming\TemplateProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,10 +54,11 @@ class TournamentRunController extends AbstractController
     }
 
     #[Route('/{id}', name: 'evolutionary_algorithm_tournament_run_show', methods: ['GET'])]
-    public function show(TournamentRun $tournamentRun): Response
+    public function show(TournamentRun $tournamentRun, TemplateProvider $templateProvider): Response
     {
         return $this->render('@EvolutionaryAlgorithm/tournament_run/show.html.twig', [
             'tournament_run' => $tournamentRun,
+            'template_provider' => $templateProvider
         ]);
     }
 

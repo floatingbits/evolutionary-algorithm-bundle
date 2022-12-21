@@ -53,3 +53,7 @@ services:
   Floatingbits\EvolutionaryAlgorithmBundle\Repository\TournamentRunRepository:
     autowire: true
     tags: [ 'doctrine.repository_service' ]
+
+  Floatingbits\EvolutionaryAlgorithmBundle\Theming\TemplateProvider:
+    arguments: ['@@EvolutionaryAlgorithm/_includes/ea_themes', 'default', [], '@twig']
+
