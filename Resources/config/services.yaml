@@ -57,3 +57,19 @@ services:
   Floatingbits\EvolutionaryAlgorithmBundle\Theming\TemplateProvider:
     arguments: ['@@EvolutionaryAlgorithm/_includes/ea_themes', 'default', [], '@twig']
 
+  Floatingbits\EvolutionaryAlgorithmBundle\Problem\ExampleProblemProvider:
+    tags: [ 'evolutionary_algorithm.problem_provider' ]
+
+
+  Floatingbits\EvolutionaryAlgorithmBundle\Evolution\Provider\DefaultTournamentProvider:
+    tags: [ 'evolutionary_algorithm.tournament_provider' ]
+
+  Floatingbits\EvolutionaryAlgorithmBundle\Command\SyncProblemsCommand:
+    arguments: ['@Floatingbits\EvolutionaryAlgorithmBundle\Repository\ProblemRepository']
+    tags:
+      - { name: 'console.command', command: 'evolutionary-algorithm:sync-problems' }
+
+  Floatingbits\EvolutionaryAlgorithmBundle\Command\SyncTournamentTypesCommand:
+    arguments: [ '@Floatingbits\EvolutionaryAlgorithmBundle\Repository\TournamentTypeRepository' ]
+    tags:
+      - { name: 'console.command', command: 'evolutionary-algorithm:sync-tournament-types' }

@@ -2,7 +2,6 @@
 
 namespace Floatingbits\EvolutionaryAlgorithmBundle\Theming;
 
-use FloatingBits\EvolutionaryAlgorithm\Specimen\SpecimenCollection;
 use Symfony\Component\String\UnicodeString;
 use Twig\Environment;
 
@@ -13,6 +12,12 @@ class TemplateProvider
     private array $classTemplateMap = [];
     private Environment $twigEnvironment;
 
+    /**
+     * @param string $templatePath
+     * @param string $theme
+     * @param array $classTemplateMap
+     * @param Environment $twigEnvironment
+     */
     public function __construct(string $templatePath, string $theme, array $classTemplateMap, Environment $twigEnvironment) {
         $this->templatePath = $templatePath;
         $this->theme = $theme;
@@ -60,9 +65,6 @@ class TemplateProvider
             $reflectionClass = $this->getParentClassForObject($object, $useParentClassGeneration);
         }
         catch (\ReflectionException $e) {
-            $reflectionClass = null;
-        }
-        if (!$reflectionClass) {
             throw new TemplateNotFoundException('Couldnt find template for object of class ' . get_class($object));
         }
         $template = $this->classTemplateMap[$reflectionClass->getName()] ??

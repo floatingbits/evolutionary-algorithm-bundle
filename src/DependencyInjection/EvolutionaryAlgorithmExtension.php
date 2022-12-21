@@ -2,6 +2,7 @@
 
 namespace Floatingbits\EvolutionaryAlgorithmBundle\DependencyInjection;
 
+
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -30,6 +31,8 @@ class EvolutionaryAlgorithmExtension extends Extension
         if (isset($config['templating']['class_map'])) {
             $definition->replaceArgument(2, $config['templating']['class_map']);
         }
+
+
 
     }
 }
