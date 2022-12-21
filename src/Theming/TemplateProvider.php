@@ -88,7 +88,7 @@ class TemplateProvider
         while ($useParentClassGeneration--) {
             $reflectionClass = $reflectionClass->getParentClass();
         }
-        return $reflectionClass ?? null;
+        return $reflectionClass instanceof \ReflectionClass ? $reflectionClass : null;
     }
 
     /**
