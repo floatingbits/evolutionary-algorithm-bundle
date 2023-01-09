@@ -73,3 +73,6 @@ services:
     arguments: [ '@Floatingbits\EvolutionaryAlgorithmBundle\Repository\TournamentTypeRepository' ]
     tags:
       - { name: 'console.command', command: 'evolutionary-algorithm:sync-tournament-types' }
+
+  Floatingbits\EvolutionaryAlgorithmBundle\Evolution\TournamentRunner:
+    arguments: []

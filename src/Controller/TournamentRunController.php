@@ -28,7 +28,8 @@ class TournamentRunController extends AbstractController
     #[Route('/new', name: 'evolutionary_algorithm_tournament_run_new', methods: ['GET', 'POST'])]
     public function new(Request $request,
                         TournamentRunRepository $tournamentRunRepository,
-                        ProblemInstanceRepository $problemInstanceRepository ): Response
+                        ProblemInstanceRepository $problemInstanceRepository,
+                        TournamentRunner $tournamentRunner): Response
     {
         $tournamentRun = new TournamentRun();
 
@@ -37,7 +38,6 @@ class TournamentRunController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $tournamentRunRepository->save($tournamentRun, true);
-            $tournamentRunner = new TournamentRunner();
             $tournamentRunResult = $tournamentRunner->runTournament($tournamentRun);
             /** @todo persist winner specimen collection */
             $tournamentRun->setSerializedSpecimens(serialize($tournamentRunResult->getSpecimenCollection()));
@@ -89,7 +89,10 @@ class TournamentRunController extends AbstractController
     }
 
     #[Route('/{id}/rerun', name: 'evolutionary_algorithm_tournament_run_rerun', methods: ['POST'])]
-    public function rerun(Request $request, TournamentRun $tournamentRun, TournamentRunRepository $tournamentRunRepository): Response
+    public function rerun(Request $request,
+                          TournamentRun $tournamentRun,
+                          TournamentRunRepository $tournamentRunRepository,
+                          TournamentRunner $tournamentRunner): Response
     {
         $newRun = new TournamentRun();
         $newRun->setProblemInstance($tournamentRun->getProblemInstance());
@@ -98,7 +101,6 @@ class TournamentRunController extends AbstractController
         $newRun->setTournamentConfiguration($tournamentRun->getTournamentConfiguration());
 
         $tournamentRunRepository->save($newRun, true);
-        $tournamentRunner = new TournamentRunner();
         $tournamentRunResult = $tournamentRunner->runTournament($newRun);
         /** @todo persist winner specimen collection */
         $newRun->setSerializedSpecimens(serialize($tournamentRunResult->getSpecimenCollection()));
