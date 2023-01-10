@@ -137,5 +137,10 @@ class ProblemInstance
         return $this->getName();
     }
 
+    public function isEditable(): bool
+    {
+        return count($this->tournamentRuns) === 0;
+    }
+
 
 }

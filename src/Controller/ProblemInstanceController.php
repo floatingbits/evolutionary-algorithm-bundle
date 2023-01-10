@@ -61,6 +61,10 @@ class ProblemInstanceController extends AbstractController
     #[Route('/{id}/edit', name: 'evolutionary_algorithm_problem_instance_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, ProblemInstance $problemInstance, EntityManagerInterface $entityManager): Response
     {
+        if (!$problemInstance->isEditable()) {
+            $this->addFlash('warning', 'This problem instance is not editable');
+            return $this->redirectToRoute('evolutionary_algorithm_problem_instance_show', ['id' => $problemInstance->getId()]);
+        }
         $form = $this->createForm(ProblemInstanceType::class, $problemInstance);
         $form->handleRequest($request);
 
@@ -77,6 +81,26 @@ class ProblemInstanceController extends AbstractController
             'form' => $form,
             'form_template' => $formTemplate
         ]);
+    }
+
+    #[Route('/{id}/clone', name: 'evolutionary_algorithm_problem_instance_clone', methods: ['GET', 'POST'])]
+    public function clone(Request $request, ProblemInstance $problemInstance, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('clone'.$problemInstance->getId(), $request->request->get('_token'))) {
+            $newProblemInstance = $this->cloneProblemInstance($problemInstance);
+            $entityManager->persist($newProblemInstance);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('evolutionary_algorithm_problem_instance_edit', ['id' => $newProblemInstance->getId()]);
+    }
+
+    private function cloneProblemInstance(ProblemInstance $originalInstance): ProblemInstance
+    {
+        $newInstance = new ProblemInstance();
+        $newInstance->setName('Clone of "' . $originalInstance->getName() . '"');
+        $newInstance->setSerializedInstance($originalInstance->getSerializedInstance());
+        $newInstance->setProblem($originalInstance->getProblem());
+        return $newInstance;
     }
 
     #[Route('/{id}', name: 'evolutionary_algorithm_problem_instance_delete', methods: ['POST'])]

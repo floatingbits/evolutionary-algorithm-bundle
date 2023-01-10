@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('evolutionary_algorithm_problem_instance_clone', {'id': problem_instance.id}) }}" >
+    <input type="hidden" name="_token" value="{{ csrf_token('clone' ~ problem_instance.id) }}">
+    <button class="btn">Clone</button>
+</form>
