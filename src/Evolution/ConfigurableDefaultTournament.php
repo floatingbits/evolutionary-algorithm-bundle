@@ -15,6 +15,8 @@ class ConfigurableDefaultTournament  implements ConfigurableTournamentInterface
     private int $numRounds;
     /** @var int  */
     private int $cleanupAfterNRounds;
+    /** @var int  */
+    private int $numSpecimen = 50;
 
     /**
      * @return int
@@ -47,6 +49,23 @@ class ConfigurableDefaultTournament  implements ConfigurableTournamentInterface
     {
         $this->cleanupAfterNRounds = $cleanupAfterNRounds;
     }
+
+    /**
+     * @return int
+     */
+    public function getNumSpecimen(): int
+    {
+        return $this->numSpecimen;
+    }
+
+    /**
+     * @param int $numSpecimen
+     */
+    public function setNumSpecimen(int $numSpecimen): void
+    {
+        $this->numSpecimen = $numSpecimen;
+    }
+
 
     /**
      * @param DefaultTournament $tournament

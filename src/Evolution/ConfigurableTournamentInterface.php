@@ -12,5 +12,6 @@ interface ConfigurableTournamentInterface extends \Stringable
     public function getTournamentClass(): string;
     public function getFormClass(): string;
     public function getNumRounds(): int;
+    public function getNumSpecimen(): int;
 
 }

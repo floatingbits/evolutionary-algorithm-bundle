@@ -16,6 +16,7 @@ class ConfigurableDefaultTournamentType extends AbstractType
         $builder
             ->add('numRounds')
             ->add('cleanupAfterNRounds')
+            ->add('numSpecimen')
         ;
 
     }

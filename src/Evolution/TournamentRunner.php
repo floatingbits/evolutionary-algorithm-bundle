@@ -25,6 +25,7 @@ class TournamentRunner implements TournamentRunnerInterface
         if ($tournamentConfiguration instanceof ConfigurableTournamentInterface) {
             $tournament = new ($tournamentConfiguration->getTournamentClass())();
             $tournamentConfiguration->configureTournament($tournament);
+            $numberOfSpecimen = $tournamentConfiguration->getNumSpecimen();
         }
         else {
             /** @todo Handle exception */
