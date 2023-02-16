@@ -28,7 +28,10 @@ class ProblemInstanceType extends AbstractType
                 $persistableInstance = new $instanceClass();
                 if ($persistableInstance instanceof PersistableProblemInterface) {
                     $formClass = $persistableInstance->getFormClass();
-                    $builder->add('persistableProblem', $formClass);
+                    if (strlen($formClass)) {
+                        $builder->add('persistableProblem', $formClass);
+                    }
+
                 }
             }
             catch (\Exception $e) {
