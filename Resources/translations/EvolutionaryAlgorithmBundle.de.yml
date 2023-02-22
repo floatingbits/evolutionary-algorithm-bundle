@@ -25,3 +25,7 @@ tournament_run:
     help_text: 'Hier finden sich die einzelnen Turnierdurchläufe. Sie besitzen eine Endaufstellung an Gen-Exemplaren, die 
      in der Detailansicht eingesehen werden kann und - aus Bequemlichkeit redundant gespeichert - das beste Rating 
      (bzw. die geringsten Kosten) der letzten Generation.'
+
+templating:
+  error:
+    template_not_found: 'Kein Template gefunden'

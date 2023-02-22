@@ -7,8 +7,10 @@ use Twig\Environment;
 
 class TemplateProvider
 {
-    private string $templatePath = '';
-    private string $theme = '';
+    /** @var ThemeInterface[] */
+    private array $themes = [];
+    /** @var ThemeInterface[] */
+    private array $orderedSubThemes = [];
     private array $classTemplateMap = [];
     private Environment $twigEnvironment;
 
@@ -18,11 +20,29 @@ class TemplateProvider
      * @param array $classTemplateMap
      * @param Environment $twigEnvironment
      */
-    public function __construct(string $templatePath, string $theme, array $classTemplateMap, Environment $twigEnvironment) {
-        $this->templatePath = $templatePath;
-        $this->theme = $theme;
+    public function __construct(array $classTemplateMap, Environment $twigEnvironment) {
+
         $this->classTemplateMap = $classTemplateMap;
         $this->twigEnvironment = $twigEnvironment;
+    }
+
+    public function addTheme(ThemeInterface $theme) {
+        $this->themes[] = $theme;
+        $this->rebuildOrderedSubThemes();
+    }
+
+    private function rebuildOrderedSubThemes() {
+        usort($this->themes, function(ThemeInterface $a, ThemeInterface $b) {
+            return $b->getPriority() <=> $a->getPriority();
+        });
+        $this->orderedSubThemes = [];
+        foreach ($this->themes as $theme) {
+            $currentTheme = $theme;
+            while ($currentTheme) {
+                $this->orderedSubThemes[] = $currentTheme;
+                $currentTheme = $currentTheme->getParentTheme();
+            }
+        }
     }
 
     /**
@@ -35,47 +55,54 @@ class TemplateProvider
         if (!$subFolder) {
             $subFolder = $this->guessSubfolder($object);
         }
-        return $this->getFullPath( $this->getTemplate($object, $subFolder));
+        foreach ($this->orderedSubThemes as $themeCandidate) {
+            try {
+                if ($templatePath = $this->getFullPath($themeCandidate, $this->getTemplate($themeCandidate, $object, $subFolder))) {
+                    return $templatePath;
+                }
+            }
+            catch (TemplateNotFoundException $e) {
+                //just try another theme as long as there are candidates left.
+            }
+        }
+        return '';
+
     }
 
     /**
      * @param $templatePath
      * @return string
      */
-    private function getFullPath($templatePath): string {
-        return $this->getThemePath() . '/' . $templatePath;
-    }
-
-    /**
-     * @return string
-     */
-    private function getThemePath(): string {
-        return $this->templatePath . '/' . $this->theme;
+    private function getFullPath(ThemeInterface $theme, $templatePath): string {
+        return $theme->getPath() . '/' . $templatePath;
     }
 
     /**
      * @param mixed $object
-     * @param string $folder
+     * @param string $classSubFolder
      * @param int $useParentClassGeneration
      * @return string
      * @throws TemplateNotFoundException
      */
-    private function getTemplate(mixed $object,string $folder,int $useParentClassGeneration = 0): string {
+    private function getTemplate(ThemeInterface $theme, mixed $object, string $classSubFolder, int $useParentClassGeneration = 0): string {
         try {
             $reflectionClass = $this->getParentClassForObject($object, $useParentClassGeneration);
         }
         catch (\ReflectionException $e) {
+            $reflectionClass = null;
+        }
+        if (!$reflectionClass) {
             throw new TemplateNotFoundException('Couldnt find template for object of class ' . get_class($object));
         }
-        $template = $this->classTemplateMap[$reflectionClass->getName()] ??
-            $folder . '/'. $this->getShortClassName($reflectionClass) . '.html.twig';
+        $templatePath =  $reflectionClass ? ($this->classTemplateMap[$reflectionClass->getName()] ??
+            $classSubFolder . '/'. $this->getShortClassName($reflectionClass) . '.html.twig') : null;
 
-        if ($this->twigEnvironment->getLoader()->exists($this->getFullPath($template))) {
-            return $template;
+        if ($this->twigEnvironment->getLoader()->exists($this->getFullPath($theme, $templatePath))) {
+            return $templatePath;
         }
         else {
             $useParentClassGeneration++;
-            return $this->getTemplate($object, $folder, $useParentClassGeneration);
+            return $this->getTemplate($theme, $object, $classSubFolder, $useParentClassGeneration);
         }
     }
 

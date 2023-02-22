@@ -1,5 +1,7 @@
+{% trans_default_domain 'EvolutionaryAlgorithmBundle' %}
 <ul>
     {% for specimen in specimenCollection %}
-        <li>Rating: {{ specimen.evaluation.mainFitness }} Genotype: {% include templateProvider.getTemplateForObject(specimen.genotype) with {genotype: specimen.genotype, templateProvider: templateProvider } %}</li>
+            {% set template = templateProvider.getTemplateForObject(specimen.genotype) %}
+        <li>Rating: {{ specimen.evaluation.mainFitness }} Genotype: {{ template|length ? include(template, {genotype: specimen.genotype, templateProvider: templateProvider }) : ('templating.error.template_not_found'|trans) }}</li>
     {% endfor %}
 </ul>

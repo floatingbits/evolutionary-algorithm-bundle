@@ -3,6 +3,7 @@
 namespace Floatingbits\EvolutionaryAlgorithmBundle;
 
 use Floatingbits\EvolutionaryAlgorithmBundle\DependencyInjection\Compiler\SyncCommandsPass;
+use Floatingbits\EvolutionaryAlgorithmBundle\DependencyInjection\Compiler\ThemePass;
 use Floatingbits\EvolutionaryAlgorithmBundle\DependencyInjection\Compiler\TwigPass;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -20,5 +21,6 @@ class EvolutionaryAlgorithmBundle extends Bundle
     public function build(ContainerBuilder $container) {
         parent::build($container);
         $container->addCompilerPass(new SyncCommandsPass());
+        $container->addCompilerPass(new ThemePass());
     }
 }

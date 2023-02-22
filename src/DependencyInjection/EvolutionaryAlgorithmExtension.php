@@ -17,20 +17,20 @@ class EvolutionaryAlgorithmExtension extends Extension
             new FileLocator(__DIR__.'/../../Resources/config')
         );
         $loader->load('services.yaml');
-        $configuration = new Configuration();
-
-        $config = $this->processConfiguration($configuration, $configs);
-
-        $definition = $container->getDefinition('Floatingbits\EvolutionaryAlgorithmBundle\Theming\TemplateProvider');
-        if (isset($config['templating']['template_path'])) {
-            $definition->replaceArgument(0, $config['templating']['template_path']);
-        }
-        if (isset($config['templating']['theme'])) {
-            $definition->replaceArgument(1, $config['templating']['theme']);
-        }
-        if (isset($config['templating']['class_map'])) {
-            $definition->replaceArgument(2, $config['templating']['class_map']);
-        }
+//        $configuration = new Configuration();
+//
+//        $config = $this->processConfiguration($configuration, $configs);
+//
+//        $definition = $container->getDefinition('Floatingbits\EvolutionaryAlgorithmBundle\Theming\TemplateProvider');
+//        if (isset($config['templating']['template_path'])) {
+//            $definition->replaceArgument(0, $config['templating']['template_path']);
+//        }
+//        if (isset($config['templating']['theme'])) {
+//            $definition->replaceArgument(1, $config['templating']['theme']);
+//        }
+//        if (isset($config['templating']['class_map'])) {
+//            $definition->replaceArgument(2, $config['templating']['class_map']);
+//        }
 
 
 

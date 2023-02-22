@@ -21,3 +21,7 @@ tournament_run:
   index:
     help_text: 'Here you can find the actual tournament runs. In the detailed view you can see a final set of specimen, including their genetic code 
      and the last generations best rating (or lowest costs), that has been stored redundantly for convenience.'
+
+templating:
+  error:
+    template_not_found: 'Template not found'

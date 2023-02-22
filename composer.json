@@ -18,10 +18,7 @@
         "symfony/twig-bundle": "^2.8 || ^3.0 || ^4.0 || ^5.0 || ^6.0"
     },
     "repositories": [
-        {
-            "type": "path",
-            "url": "/home/soeren/Projects/evolutionary-algorithm"
-        },
+
         {
             "type": "vcs",
             "url": "https://github.com/floatingbits/evolutionary-algorithm",

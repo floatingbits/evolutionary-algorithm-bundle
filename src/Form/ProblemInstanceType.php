@@ -35,7 +35,7 @@ class ProblemInstanceType extends AbstractType
                 }
             }
             catch (\Exception $e) {
-
+                throw $e;
             }
         }
     }

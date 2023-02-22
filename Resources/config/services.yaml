@@ -55,7 +55,12 @@ services:
     tags: [ 'doctrine.repository_service' ]
 
   Floatingbits\EvolutionaryAlgorithmBundle\Theming\TemplateProvider:
-    arguments: ['@@EvolutionaryAlgorithm/_includes/ea_themes', 'default', [], '@twig']
+    arguments: [[], '@twig']
+
+  ea.theme.default:
+    class: Floatingbits\EvolutionaryAlgorithmBundle\Theming\Theme
+    arguments: ['@@EvolutionaryAlgorithm/_includes/ea_themes/default']
+    tags: [ 'evolutionary_algorithm.theme' ]
 
   Floatingbits\EvolutionaryAlgorithmBundle\Problem\ExampleProblemProvider:
     tags: [ 'evolutionary_algorithm.problem_provider' ]
