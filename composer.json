@@ -15,7 +15,9 @@
     ],
     "require": {
         "floatingbits/evolutionary-algorithm": "dev-main",
-        "symfony/twig-bundle": "^2.8 || ^3.0 || ^4.0 || ^5.0 || ^6.0"
+        "symfony/twig-bundle": "^2.8 || ^3.0 || ^4.0 || ^5.0 || ^6.0",
+        "enqueue/enqueue-bundle": "^0.10.16",
+        "enqueue/dbal": "^0.10.17"
     },
     "repositories": [
 

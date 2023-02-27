@@ -4,16 +4,22 @@ namespace Floatingbits\EvolutionaryAlgorithmBundle\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Floatingbits\EvolutionaryAlgorithmBundle\Entity\ProblemInstance;
+use Floatingbits\EvolutionaryAlgorithmBundle\Event\EntityFormSubmitted;
 use Floatingbits\EvolutionaryAlgorithmBundle\Form\ProblemInstanceType;
 use Floatingbits\EvolutionaryAlgorithmBundle\Problem\PersistableProblemInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 #[Route('/problem-instance')]
 class ProblemInstanceController extends AbstractController
 {
+    public function __construct(private EventDispatcherInterface $eventDispatcher)
+    {
+    }
+
     #[Route('/', name: 'evolutionary_algorithm_problem_instance_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager): Response
     {
@@ -37,6 +43,7 @@ class ProblemInstanceController extends AbstractController
             if (is_null($problemInstance->getSerializedInstance())) {
                 $problemInstance->setSerializedInstance(' ');
             }
+            $this->eventDispatcher->dispatch(new EntityFormSubmitted(EntityFormSubmitted::ACTION_NEW, $problemInstance, $form));
 
             $entityManager->persist($problemInstance);
             $entityManager->flush();
@@ -69,6 +76,7 @@ class ProblemInstanceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->eventDispatcher->dispatch(new EntityFormSubmitted(EntityFormSubmitted::ACTION_EDIT, $problemInstance, $form), EntityFormSubmitted::NAME);
             $entityManager->flush();
 
             return $this->redirectToRoute('evolutionary_algorithm_problem_instance_index', [], Response::HTTP_SEE_OTHER);

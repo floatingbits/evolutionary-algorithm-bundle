@@ -15,6 +15,7 @@ services:
     tags: ['doctrine.repository_service']
 
   Floatingbits\EvolutionaryAlgorithmBundle\Controller\ProblemInstanceController:
+    arguments: ['@event_dispatcher']
     tags: [ 'controller.service_arguments', 'container.service_subscriber' ]
     calls:
       - [ setContainer, [ '@Psr\Container\ContainerInterface' ] ]
